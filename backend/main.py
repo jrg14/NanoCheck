@@ -5,10 +5,16 @@ from fastapi import Depends, FastAPI
 
 from backend.core.config import Settings
 from backend.core.db import create_tables
-from backend.modules.users import router as users_router
+from backend.modules.users.routes import router as users_router
 from fastapi.middleware.cors import CORSMiddleware
+from contextlib import asynccontextmanager
 
-app = FastAPI()
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    create_tables()
+    yield
+
+app = FastAPI(lifespan=lifespan)
 
 # Configuración de CORS
 origins = [
@@ -28,11 +34,6 @@ app.add_middleware(
 @lru_cache
 def get_settings() -> Settings:
     return Settings()
-
-
-@app.on_startup()
-def on_startup() -> None:
-    create_tables()
 
 
 @app.get("/info")
