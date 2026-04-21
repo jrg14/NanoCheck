@@ -29,7 +29,7 @@ DbSession = Annotated[Session, Depends(get_db)]
 @router.post("/", response_model=UserRead, status_code=status.HTTP_201_CREATED)
 def create_user(payload: UserCreate, db: DbSession) -> User:
     existing_user = db.scalar(select(User).where(User.email == payload.email))
-    if existing_user is not None:
+    if existing_user:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
             detail="A user with that email already exists.",
@@ -54,7 +54,7 @@ def list_users(db: DbSession) -> list[User]:
 @router.get("/{user_id}", response_model=UserRead)
 def get_user(user_id: int, db: DbSession) -> User:
     user = db.get(User, user_id)
-    if user is None:
+    if not user:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail="User not found."
         )
@@ -64,7 +64,7 @@ def get_user(user_id: int, db: DbSession) -> User:
 @router.patch("/{user_id}", response_model=UserRead)
 def update_user(user_id: int, payload: UserUpdate, db: DbSession) -> User:
     user = db.get(User, user_id)
-    if user is None:
+    if not user:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail="User not found."
         )
@@ -96,7 +96,7 @@ def update_user(user_id: int, payload: UserUpdate, db: DbSession) -> User:
 @router.delete("/{user_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_user(user_id: int, db: DbSession) -> Response:
     user = db.get(User, user_id)
-    if user is None:
+    if not user:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail="User not found."
         )
