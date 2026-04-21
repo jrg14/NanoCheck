@@ -5,6 +5,7 @@ from fastapi import Depends, FastAPI
 
 from backend.core.config import Settings
 from backend.core.db import create_tables
+from backend.modules.projects.routes import router as projects_router
 from backend.modules.users.routes import router as users_router
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
@@ -45,3 +46,4 @@ async def info(settings: Annotated[Settings, Depends(get_settings)]) -> dict[str
 
 
 app.include_router(users_router)
+app.include_router(projects_router)
