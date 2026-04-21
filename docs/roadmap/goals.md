@@ -11,8 +11,8 @@ Situacion actual del repo:
 - [x] Vision del producto documentada
 - [x] Direccion tecnica inicial documentada
 - [x] Configuracion basica de dependencias Python
-- [ ] API implementada
-- [ ] Persistencia implementada
+- [x] API implementada
+- [x] Persistencia implementada
 - [ ] Scheduler y workers implementados
 - [ ] Tests funcionales
 
@@ -22,8 +22,8 @@ Situacion actual del repo:
 - Dependencias: ninguna.
 - Entregables:
   - [ ] estructura base de `app/` y `modules/`
-  - [ ] app `FastAPI` inicial
-  - [ ] modulo de configuracion
+  - [x] app `FastAPI` inicial
+  - [x] modulo de configuracion
   - [ ] `README` con arranque real
   - [ ] pipeline minima de lint y tests
 
@@ -32,7 +32,7 @@ Situacion actual del repo:
 - Objetivo: modelar usuarios, proyectos y endpoints.
 - Dependencias: Fase 1.
 - Entregables:
-  - [ ] modelo `User`
+  - [x] modelo `User`
   - [ ] modelo `Project`
   - [ ] modelo `Endpoint`
   - [ ] CRUD de proyectos
